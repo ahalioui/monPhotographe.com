@@ -2,14 +2,24 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+
+
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[InheritanceType("SINGLE_TABLE")]
+#[DiscriminatorColumn(name: "discr", type: "string")]
+#[DiscriminatorMap(["user" => "User", "client" => "Client", "photographe" => "Photographe"])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    //cette classe sera utilisé par client et photographe
+    //Il faut ajouter le rôle client et le rôle photographe dans les Fixtures
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -24,6 +34,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $nom;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $prenom;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $codePostal;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $pays;
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -93,4 +116,53 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(?string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?string
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(?string $codePostal): self
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    public function getPays(): ?string
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?string $pays): self
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
 }

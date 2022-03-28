@@ -21,8 +21,8 @@ class ClientType extends AbstractType
             ->add('Numero', TextType::class)
             ->add('CodePostal', TextType::class)
             ->add('Pays', TextType::class)
-            ->add('Login', TextType::class)
-            ->add('Password', PasswordType::class)
+            //->add('Login', TextType::class)
+            //->add('Password', PasswordType::class)
         ;
 
     }
