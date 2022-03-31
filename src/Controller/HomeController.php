@@ -9,37 +9,45 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')]
+    #[Route('/home', name: 'app_home', methods:['GET', 'POST'])]
     public function index(PhotographeRepository $photographeRepository)
     {
-        $photographes = $photographeRepository ->findAll();
         
-        dump($photographes[0]);
-        dump ($photographes[0]->getRoles());
+        // $photographes = $photographeRepository ->findAll();
+        // $vars = ['photographe' =>$photographes];
+        return $this->render('/home/index.html.twig', [
+            'photographes' =>$photographeRepository ->findAll()
+        ]);
 
-        if (in_array('ROLE_PHOTOGRAPHE',$photographes[0]->getRoles())){
-            dump("photographe");
-        }
+    
+        
+        // dump($photographes[0]);
+        // dump ($photographes[0]->getRoles());
+
+        // if (in_array('ROLE_PHOTOGRAPHE',$photographes[0]->getRoles())){
+        //     dump("photographe");
+        // }
 
         //dd($photographes);
 
         // verifier si la personne connectee est photographe ou client
 
-        dump($this->getUser());
+    //     dump($this->getUser());
         
-        if (in_array('ROLE_PHOTOGRAPHE',$this->getUser()->getRoles())){
+    //     if (in_array('ROLE_PHOTOGRAPHE',$this->getUser()->getRoles())){
             
-            dump("photographe");
-        }
-        else {
-            dump("client");
+    //         dump("photographe");
+    //     }
+    //     else {
+    //         dump("client");
 
-        }
+    //     }
 
-        dd();
+    //     dd();
         
-        return $this->render('home/index.html.twig', [
-            'photographes' => $photographes
-        ]);
+    //     return $this->render('home/index.html.twig', [
+    //         'photographes' => $photographes
+    //     ]);
     }
+   
 }
