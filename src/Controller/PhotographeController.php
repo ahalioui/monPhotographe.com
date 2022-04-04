@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Photographe;
 use App\Form\Photographe1Type;
 use App\Repository\PhotographeRepository;
+use App\Repository\TarifRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,9 +49,10 @@ class PhotographeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_photographe_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Photographe $photographe, PhotographeRepository $photographeRepository): Response
+    public function edit(Request $request, Photographe $photographe, PhotographeRepository $photographeRepository, TarifRepository $tarifs): Response
     {
         $form = $this->createForm(Photographe1Type::class, $photographe);
+        $tarif = $tarifs->findAll();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

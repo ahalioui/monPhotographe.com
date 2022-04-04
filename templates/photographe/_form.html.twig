@@ -1,4 +1,34 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="input-field col s12 m6 l6">
+    {{ form_row(form.Nom) }}
+</div>
+
+<div class="input-field col s12 m6 l6">
+    {{ form_row(form.Prenom) }}
+</div>
+
+<div class="input-field col s12 m6 l6">
+    {{ form_row(form.CodePostal) }}
+</div>
+
+<div class="input-field col s12 m6 l6">
+    {{ form_row(form.Pays) }}
+</div>
+
+<div class="input-field col s12 m6 l6">
+    {{ form_row(form.TVA) }}
+</div>
+
+<div class="input-field col s12 m6 l6">
+    {{ form_row(form.Email) }}
+</div>
+
+<div class="input-field col s12 m6 l6">
+{{ form_row(form.Password)}}
+</div>
+<div class="input-field col s12 m6 l6">
+    {{ form_widget(form.tarifs.vars.prototype) }}
+</div>   
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+

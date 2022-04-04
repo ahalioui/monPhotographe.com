@@ -20,7 +20,7 @@ class Photographe extends User
     #[ORM\OneToMany(mappedBy: 'photographe', targetEntity: Prestation::class)]
     private $prestations;
 
-    #[ORM\OneToMany(mappedBy: 'photographe', targetEntity: Tarif::class)]
+    #[ORM\OneToMany(mappedBy: 'photographe', targetEntity: Tarif::class , cascade:["persist", "remove"])]
     private $tarifs;
 
     public function __construct()
@@ -114,5 +114,11 @@ class Photographe extends User
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+     // TODO: Implement __toString() method.
+     return $this->nom;
     }
 }
